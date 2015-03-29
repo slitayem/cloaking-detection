@@ -1,0 +1,34 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Background}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Example}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Search Engine Marketing}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Cloaking Types}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Previous Work}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Cloaking Detection}{subsection.2.4}% 7
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Simhash}{subsection.2.4}% 8
+\BOOKMARK [1][-]{section.3}{Methodology}{}% 9
+\BOOKMARK [2][-]{subsection.3.1}{Simhash-based Website Model}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Distance Approximation}{subsection.3.1}% 11
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Computation}{subsection.3.1}% 12
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Requirements On Feature Set}{subsection.3.1}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Text Simhash and DOM Simhash}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Clustering}{subsection.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Cloaking Detection}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Dataset}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Keywords}{subsection.3.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Crawling}{subsection.3.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Data Statistics}{subsection.3.3}% 20
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Groundtruth}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Detection and Evaluation}{section.4}% 23
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Selection of T\137learn and T\137detect}{subsection.4.2}% 24
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Radius Selection R\137detect}{subsection.4.2}% 25
+\BOOKMARK [1][-]{section.5}{Measurement}{}% 26
+\BOOKMARK [2][-]{subsection.5.1}{Cloaking in SEO}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.2}{Cloaking in SEM}{section.5}% 28
+\BOOKMARK [1][-]{section.6}{Discussion}{}% 29
+\BOOKMARK [2][-]{subsection.6.1}{Efficiency Comparison}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.2}{Server-based Deployment}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.3}{Crowdsourcing-based Deployment}{section.6}% 32
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 33
+\BOOKMARK [1][-]{Appendix.1.A}{Appendix Cloaking in SEO and SEM}{}% 34

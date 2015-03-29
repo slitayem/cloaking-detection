@@ -1,0 +1,163 @@
+\section{Introduction}
+\label{s:intro}
+
+Cloaking is a technique to deliver blatantly different content to users versus
+censors on the web. 
+Search engine is the main entry for user to get online today, and therefore,
+attackers who want to promote illegal services or do phishing and malware
+hosting is willing to have their page ranked high through search engine.
+On the other hand, search engine develops algorithms to rank pages and penalize
+these pages. In order to evade detection, attackers use cloaking to hide the
+true nature of their website, conducting blackhat Search Engine Optimization (SEO).
+Similarly, in Search Engine Marketing (SEM), advertisers pay search engine for
+specific advertisements and get their page displayed on the first page of search
+results. Attackers abuse this service to deliver non-compliant content to user.
+The foundamental reason of SEO and SEM cloaking is that, search engine is just processing
+information over the Internet, with no control over it, hence it is hard to
+tell whether the copy of website that they see are actually what user sees.
+
+In SEO and SEM, attackers use user agent, referer, IP etc based cloaking
+techniques to avoid inspection. Among the cloaking techniques, IP cloaking is
+very difficult to detect. 
+There are two major challenges in cloaking detection in SEO and SEM.
+First challenge is revealing the cloaked content. There are various
+commercial tools, such as blackjack's, noIPfraud, and wpCloaker~\cite{intro:cloakware}
+that are efficient in performing cloaking.
+They provide different strategies of cloaking, including user agent, referer,
+redirect, IP etc. Regarding IP cloaking, they provide services to periodically refresh the list of
+crawlers' IP addresses. Therefore, revealing cloaked content is an ongoing war
+between cloakers and censors.
+Second challenge is differentiating
+cloaking from naturally dynamic changes of the same page. Dynamic content is
+allowed in SEO and SEM, however, blatantly deliver different, unrelated content
+to search engine spider versus normal user is not allowed.
+
+In order to address the first challenge, existing detection approaches pretend to be real user, e.g. set
+referer, user agent, use multiple IPs or proxy to hide identity. But
+attackers could identify them and incrementally blacklist IPs.
+Intuitively, an alternate is to collect data from user side directly. However, it is hard
+to collect sufficient data for comparison while protecting user privacy.
+Regarding the second challenge, previous works go through the documents multiple times and compare page
+difference to address the second challenge ~\cite{chellapilla2006improving, deng2013uncovering,
+lin2009detection, wang2011cloak}.
+There are mainly two shortcomings in previous approaches.
+First,  they are slow, because pairwise comparison of documents is
+computationally expensive and they usually require multiple passes of a
+document.
+Second, they are not suitable for crowdsourcing, because they may introduce
+high overhead to user and violates user privacy. 
+
+%To address the second challenge, ~\cite{wu2005cloaking} looks at the
+%statistical features of a website, including words, tags, links. 
+%~\cite{chellapilla2006improving} employs popular search words and high
+%monetizable words to detect cloaking, say, detect cloaking in words that matter.
+%~\cite{lin2009detection} looks at the tag sequence on a website.
+%~\cite{wang2011cloak} employs text shingling, search snippet inclusion test in
+%landing page and tag comparison to detect cloaking. However, these methods are
+%either too naive, eg. look at statistics, or time-consuming and
+%redundant~\cite{wang2011cloak}. Besides, since all these approaches are
+%centralized detection, they can not be deployed to detect SEM cloaking, because
+%the data collection phase, say, clicking search ads, actually results in click fraud.
+
+This work employs simhash to address the two challenges.
+Charikar's simhash ~\cite{charikar2002similarity} is a special signature of feature set. 
+It is a class of Locality Sensitive Hash (LSH) that has been extensively used in
+near duplicate in search engine.
+It is an random projection based algorithm that maps high dimentional data to fixed bits while
+maintaining the property that, hamming distance between the resulting bits is an
+estimation of similarity between the original feature set.
+%estimation of the Earth Mover Distance (EMD) between the original feature set.
+
+%In our approach, we stand back and think about the dynamic nature of websites
+%and try to figure out how can we measure or quantify the dynamics of websites.
+%For example, does the change of a website follow some pattern? What is the
+%average change? By answering these questions, we can then figure out the
+%websites and then model them better. We first illustrate the dynamicness of a
+%webpage and propose a way to model their change.
+%Next, we train our model on manually label dataset to check some paramter to
+%identify cloaking (one use case for website modeling). 
+%Then, we employ our model to detect cloaking on advertisement cloaking dataset
+%and identified \XXX{??} cloaking sites, showing prevalence of cloaking in both
+%advertisements and search.
+%
+We propose Simhash-based Website Model(SWM) to model the dynamics of a
+web page and use the outlier detection ability of SWM to do cloaking detection.
+The basic idea is to generate two fuzzy hash corresponding to text and dom tree
+for each website (fuzzy signature), and compare the differences between spider copy and user copy.
+In order to model dynamics of a website, we retrieve spider copy multiple
+times and leverage the fact that hamming distance is euclidean distance (
+L1 norm) to learn patterns.
+The proposed system achieves 97.1\% true positive rate with
+0.3\% false positive rate.
+%And much higher efficiency compared to past
+%approaches. 
+
+By applying the trained model on collected dataset, we detected 2600 cloaking samples in total.
+Then, we manually classify and illustrate the incentives behind cloaking,
+results show that the majority are doing blackhat SEO for traffic sale,
+4.3\% of cloaking sites are malicious download or phishing sites. A breakdown of
+the results are described in ~\autoref{s:measurement}.
+
+With motivation of both search engine and user to combat cloaking, we propose a
+novel model to collect simhash
+%
+%we establish incentives both search engine and users in cloaking detection.
+%both user and search engine are interested in this.
+%
+from user side, with low overhead and privacy guarantee provided by RAPPOR.
+By crowdsourcing the fuzzy signatures of what is actually shown to user, we
+address both challenges in cloaking elegantly.
+
+%In the new model, we can detect cloaking in SEM, because what we need to collect
+%is url and statistics of simhash, which doesn't comply to click fraud. 
+
+%Past approaches cannot handle advertisements, however, because of privacy issues
+%and efficient hash technique. In comparison, our model is light-weight, easy to
+%implement algorithm that can be used to fingerprint a website. And this
+%fingerprint can be used to either compare against known blacklist, or send back
+%to search engine for further analysis.
+%
+
+
+%According to ~\cite{lin2009detection}, many cloaking software packages support
+%IP cloaking, and some even provide services to periodically refresh the list of
+%crawlers’ IP addresses. Therefore, IP cloaking is hard to detect. To the
+%author's knowledge, there is no known work that can solve IP
+%cloaking.
+
+
+%Security problems in cloaking, phishing site, suspicious site, non-compliant
+%content, malware, dishonest behavior.
+%
+%Given a form to the user and tell him, you can get some money if you sigh up,
+%but this form is not delivered to Google.
+
+%Precision is 0.9610642439974043, out of 1541.
+%
+%This paper makes the following contributions:
+%(1) Introduce simhash-based website model to represent the content and layout
+%dynamics of a page.
+%(2) Propose the idea and framework to detect cloaking and protect user through crowdsourcing,
+%with low traffic overhead and privacy guarantee for user.
+%(3) Use of simhash-based website model, in cloaking detection, with better FPR
+%and TPR.
+%(4) Detect cloaking in both SEO and SEM , showing the seriousness of cloaking
+%problem in SEO and SEM.
+%(5) Examine the cloaking strategies employed by attackers.
+%
+
+The remainder of this paper is structured as follows. Section
+~\autoref{s:related-work} provides a
+technical background on cloaking and simhash, and related work in cloaking
+detection. Section ~\autoref{s:methodology} introduces methodlogies, including simhash-based website
+model, cloaking detection algorithm and dataset collection.
+Followed by evaluation of our model in Section ~\autoref{s:evaluation}.
+Section ~\autoref{s:measurement} explains our detection result in SEO and SEM
+and motivate the deployment.
+Section ~\autoref{s:discussion} compares our work with past approaches and 
+describes server-based and crowdsource-based
+deployment, proposes the frameworks and corresponding pros and cons. Section
+~\autoref{s:conclusion} concludes this work.
+
+%More fascinating text. Features\endnote{Remember to use endnotes, not
+%footnotes!} galore, plethora of promises.\\

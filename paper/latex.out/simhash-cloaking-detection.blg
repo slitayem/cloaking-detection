@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: simhash-cloaking-detection.aux
+The style file: acm.bst
+Database file #1: ruian.bib
+Database file #2: weiren.bib
+Warning--to sort, need author or key in intro:cloakware
+Warning--to sort, need author or key in sem-wiki
+Warning--to sort, need author or key in google-ad-policy
+Warning--to sort, need author or key in icintro
+Warning--to sort, need author or key in google-trend
+Warning--to sort, need author or key in keyword-planner
+Warning--to sort, need author or key in wot
+Warning--there's a number but no series in henzinger2002challenges
+Warning--empty journal in jones2014scipy
+You've used 26 entries,
+            2253 wiz_defined-function locations,
+            658 strings with 7938 characters,
+and the built_in function-call counts, 8825 in all, are:
+= -- 854
+> -- 350
+< -- 0
++ -- 148
+- -- 122
+* -- 582
+:= -- 1283
+add.period$ -- 77
+call.type$ -- 26
+change.case$ -- 139
+chr.to.int$ -- 0
+cite$ -- 35
+duplicate$ -- 381
+empty$ -- 807
+format.name$ -- 122
+if$ -- 1955
+int.to.chr$ -- 0
+int.to.str$ -- 26
+missing$ -- 17
+newline$ -- 132
+num.names$ -- 38
+pop$ -- 239
+preamble$ -- 1
+purify$ -- 113
+quote$ -- 0
+skip$ -- 266
+stack$ -- 0
+substring$ -- 522
+swap$ -- 118
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 104
+warning$ -- 9
+while$ -- 74
+width$ -- 28
+write$ -- 257
+(There were 9 warnings)

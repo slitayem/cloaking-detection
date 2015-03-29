@@ -1,0 +1,278 @@
+package cloaking_detection;
+
+// Requires protocol buffer version >= 2.3.0
+
+// This is the learned sites. Learn each site separately.
+// For one site, there may be several patterns, each pattern has 
+// its own distribution.
+message LearnedSites {
+  repeated SitePatterns site = 1;
+  optional string timestamp = 2;
+}
+
+message SitePatterns {
+  required string name = 1;
+  repeated Pattern pattern = 2;
+}
+
+message Pattern {
+  // Deprecated.
+  // Currently there are three ways to represent (model) a pattern,
+  // NORMAL_DISTRIBUTION, GRADIENT_DESCENT, JOINT_DISTRIBUTION
+  // centroid, size: the center of a pattern
+  // mean, std: mean and standard deviation of point to centroid distance,
+  // for NORMAL_DISTRIBUTION
+  // percentile: an alternative for NORMAL_DISTRIBUTION
+  // mce_threshold: minimum classification error based threshold for
+  // GRADIENT_DESCENT.
+  // distribution: for JOINT_DISTRIBUTION
+  //
+  //
+
+  // Use hierarchical clustering to learn clusters,
+  // Use inconsistent coefficient to test belonging.
+  //
+  // mean and std is used for NORMAL_DISTRIBUTION
+  optional double mean = 1;
+  optional double std = 2;
+  // Used in model computation.
+  // Used in data labeling where one pattern requires one representative (file_path).
+  // Not used in detection (can be removed in this case).
+  repeated SimhashItem item = 3;
+  // centroid is used to represent the center. This reduces computation cost.
+  // centroid / size is the actual center
+  repeated uint64 centroid = 4 [packed=true];
+  optional uint64 size = 5;
+  // mce_threshold is used for GRADIENT_DESCENT
+  optional double mce_threshold = 6;
+  // distribution is used for JOINT_DISTRIBUTION
+  // the complement of CDF is the extreme upper tail probabilities and is used in detection.
+  // P(x) = (size - count) / size
+  optional CDF cdf = 7;
+  // percentile is used for NORMAL_DITRIBUTION
+  // mean + 3 * std should be the same as percentile.p99
+  optional Percentile percentile = 8;
+  // Used in hierarchical clustering and detection
+  // link height list, used for std and mean computation
+  // Y[k, 4] = (Z[k, 3] - Y[k, 1]) / Y[k, 2]
+  repeated double link_heights = 9 [packed=true];
+}
+
+message Percentile {
+  optional uint32 p99 = 1;  // pXX range in [0, 64]
+  optional uint32 p97 = 2;
+  optional uint32 p95 = 3;
+  optional uint32 p90 = 4;
+  optional uint32 p75 = 5;
+  optional uint32 p50 = 6;
+}
+
+message CDF {
+  repeated Point point = 1;
+}
+
+message Point {
+  required uint32 x = 1;  // x range in [0, 64]
+  required uint64 count = 2;  // number of points with distance to centroid less or equal than x
+}
+
+message SimhashItem {
+  required uint64 simhash = 1;
+  optional uint64 count = 2 [default = 1];
+  optional string sample_file_path = 3;  // A sample file path
+}
+
+// Sites to classify. This is used in learning and detection phase.
+message ObservedSites {
+  repeated SiteObservations site = 1;
+  optional SimhashConfig config = 2;
+}
+
+message SiteObservations {
+  required string name = 1;
+  repeated Observation observation = 2;
+}
+
+message Observation {
+  required string landing_url = 1;
+  optional string file_path = 2;  // failure observation may not have this field
+  optional string timestamp = 3;
+  optional uint64 text_simhash = 4;
+  optional uint64 dom_simhash = 5;
+  optional uint32 text_feature_count = 6;
+  optional uint32 dom_feature_count = 7;
+}
+
+message DeNoiseConfig {
+  // The config used in phase of de-noising
+  optional bool empty_file_path = 1 [default = true];
+  optional bool zero_simhash = 2 [default = true];
+  optional bool zero_feature = 3 [default = false];
+  optional string simhash_name = 4;
+  optional string feature_name = 5;
+  // Less than this threshold is considered as noise
+  optional uint32 feature_count_threshold = 6 [default = 1];
+}
+
+// Text features
+message HtmlText {
+  repeated Feature word = 1;
+  repeated Feature bi_gram = 2;
+  repeated Feature tri_gram = 3;
+}
+
+// Dom tree features
+message HtmlDom {
+  repeated Feature node = 1;
+  repeated Feature bi_node = 2;
+  repeated Feature tri_node = 3;
+}
+
+message Feature {
+  required string name = 1;
+  optional int32 int_value = 2 [default = 1];
+  optional double double_value = 3;
+  optional string string_value = 4;
+}
+
+enum SimhashType {
+  TEXT = 0;
+  DOM = 1;
+  TEXT_DOM = 2;  // First TEXT, then DOM
+}
+
+message SimhashConfig {
+  required SimhashType simhash_type = 1;
+  message FeatureUsage {
+    optional bool gram = 1 [default = true];
+    optional bool bi_gram = 2 [default = true];
+    optional bool tri_gram = 3 [default = false];
+  }
+  optional FeatureUsage usage = 2;
+  optional int32 maximum_threads = 3 [default = 10];
+  // When preparing ObservedSites from CrawlLog, failure can be considered
+  // either useless (in user view), or a hint of cloaking (in Google view).
+  // Decide whether to discard crawl failure accordingly.
+  optional bool discard_failure = 4 [default = true];
+  // In short, set True for user, set False for Google.
+  // Here is the reason:
+  // When preparing ObservedSites from CrawlLog, landing_url used in 
+  // ObservedSites are important because eventually, we are comparing user
+  // landing url with Google visited URLs.
+  // However, Google visit one URL (landing url user sees), but may be 
+  // redirected to another URL. This is bad for comparison. Therefore,
+  // when loading Google crawl log, we aggregate the observed_sites by
+  // the visited url, not the landing url.
+  optional bool crawl_log_landing_url_as_observation_landing_url = 5 [default = true];
+}
+
+// Configuration for simhash clustering
+message Algorithm {
+  enum AlgoName {
+    HAMMING_THRESHOLD = 0;  // Deprecated. Because have no theory support.
+    K_MEANS = 1;  
+    SPECTRAL_CLUSTERING = 2;
+    HIERARCHICAL_CLUSTERING = 3;
+  }
+  required AlgoName name = 1;
+  optional int32 thres = 2; // thres used by hamming threshold
+  optional int32 k = 3;  // k used by k-means, and spectral clustering
+  // left out ratio used by hierarchical clustering
+  // deprecated. use inconsistent coefficient as cutoff now
+  optional int32 left_out_ratio = 4 [deprecated = true]; 
+  // inconsistent coefficient is used to tell clusters apart
+  optional double inconsistent_coefficient = 5 [default = 1];
+  // deprecated, suppose there are m observations, we set depth to m-1, meaning
+  // that we want to take into consideration of all the links in the tree.
+  //
+  // We are doing this, in order to be consistent with the detection phase.
+  //
+  optional int32 inconsistent_depth = 6 [deprecated = true];
+}
+
+message ClusterConfig {
+  required Algorithm algorithm = 1;
+  optional int32 minimum_cluster_size = 2 [deprecated = true];
+  optional int32 maximum_threads = 3 [default = 10];
+  optional SimhashType simhash_type = 4 [default = TEXT];
+  // Whether to use the simhash count in the cluster algorithm
+  optional bool use_simhash_count = 5 [deprecated = true];
+}
+
+// Configuration for cloaking detection
+message DetectionConfig {
+  enum Algorithm {
+    // Use (mean + std_constant * std) as threshold
+    NORMAL_DISTRIBUTION = 0;  
+    // Assume threshold to be k_i, for cluster i. 
+    // Objective function = sum(Type I error) + sum(Type II error),
+    // Compute minimum classification error to get k_i.
+    GRADIENT_DESCENT = 1;  
+    // Histogram the centroid_distances and compute distribution.
+    JOINT_DISTRIBUTION = 2;
+    // Use Percentile as threshold, percentile is given by p.
+    PERCENTILE = 3;
+    // Use inconsistent_coefficient as threshold.
+    INCONSISTENT_COEFFICIENT = 4;
+  }
+  required Algorithm algorithm = 1;
+  optional int32 std_constant = 2;
+  optional SimhashType simhash_type = 3 [default = TEXT];
+  optional int32 p = 4 [default = 97];  // percentile
+  // The minimum radius for each cluster
+  optional double min_radius = 5 [default = 0];
+  // inconsistent coefficient threshold, used to test cluster belonging
+  // similar to std_constant. but with a better name.
+  optional double inconsistent_coefficient = 6 [default = 1];
+}
+
+// Crawler data structures, used by crawler to store information.
+enum ResultType {
+  AD = 0;
+  SEARCH = 1;
+}
+
+message CrawlConfig {
+  optional int32 maximum_threads = 1;
+  optional string user_agent = 2;
+  optional string user_agent_md5_dir = 3;
+  enum BrowserType {
+    CHROME = 0;
+    FIREFOX = 1;
+    HTMLUNIT = 2;
+  }
+  optional BrowserType browser_type = 4;
+  // Type of result to retrieve.
+  optional ResultType result_type = 5 [default = AD];
+  // Number of top search results to be inspected.
+  optional int32 count = 6 [default = 200];
+  optional string log_filename = 7;
+  optional string crawl_log_dir = 8;
+}
+
+message CrawlLog {
+  repeated CrawlSearchTerm result_search = 1;
+}
+
+message CrawlSearchTerm {
+  optional string search_term = 1;
+  optional ResultType result_type = 2 [default = AD];
+  repeated CrawlResult result = 3;
+}
+
+message CrawlResult {
+  optional string file_path = 1;
+  optional string landing_url = 2;
+  optional string landing_url_md5 =3;
+  optional string url = 4;
+  optional string url_md5 = 5;
+  optional string timestamp = 6;
+  optional bool success = 7;
+}
+
+// Parameter Type. Used for thread computer.
+enum ParaType {
+  NORMAL = 0;  // Call runnable_object.function(para)
+  FILE_PATH = 1;  // Call runnable_object.function(open(para, 'r').read())
+}
+

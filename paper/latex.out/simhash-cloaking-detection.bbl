@@ -1,0 +1,147 @@
+\begin{thebibliography}{10}
+
+\bibitem{intro:cloakware}
+Cloaking software.
+\newblock \URL{http://wpcloaker.com}.
+\newblock Accessed Feb. 14, 2015.
+
+\bibitem{google-ad-policy}
+Google adwords policy.
+\newblock
+  \URL{https://support.google.com/adwordspolicy/topic/1626336?hl=en&ref_topic=2996750}.
+\newblock Accessed Dec, 2014.
+
+\bibitem{keyword-planner}
+Google keyword planner.
+\newblock \URL{https://adwords.google.com/KeywordPlanner}.
+\newblock Accessed Feb.15, 2015.
+
+\bibitem{google-trend}
+Google trends.
+\newblock \URL{http://www.google.com/trends/}.
+\newblock Accessed Dec, 2014.
+
+\bibitem{icintro}
+Inconsistent coefficient explanation.
+\newblock \URL{http://www.mathworks.com/help/stats/inconsistent.html}.
+\newblock MathWorks, Inc.
+
+\bibitem{sem-wiki}
+Search engine marketing.
+\newblock \URL{http://en.wikipedia.org/wiki/Search_engine_marketing}.
+\newblock Accessed Feb. 14, 2015.
+
+\bibitem{wot}
+Web of trust.
+\newblock \URL{http://www.mywot.com/wiki/API}.
+\newblock Accessed Jan, 2015.
+
+\bibitem{broder1997syntactic}
+{\sc Broder, A.~Z., Glassman, S.~C., Manasse, M.~S., and Zweig, G.}
+\newblock Syntactic clustering of the web.
+\newblock {\em Computer Networks and ISDN Systems 29}, 8 (1997), 1157--1166.
+
+\bibitem{charikar2002similarity}
+{\sc Charikar, M.~S.}
+\newblock Similarity estimation techniques from rounding algorithms.
+\newblock In {\em Proceedings of the thiry-fourth annual ACM symposium on
+  Theory of computing\/} (2002), ACM, pp.~380--388.
+
+\bibitem{chellapilla2006improving}
+{\sc Chellapilla, K., and Chickering, D.~M.}
+\newblock Improving cloaking detection using search query popularity and
+  monetizability.
+\newblock In {\em AIRWeb\/} (2006), pp.~17--23.
+
+\bibitem{deng2013uncovering}
+{\sc Deng, J., Chen, H., and Sun, J.}
+\newblock Uncovering cloaking web pages with hybrid detection approaches.
+\newblock In {\em Computational and Business Intelligence (ISCBI), 2013
+  International Symposium on\/} (2013), IEEE, pp.~291--296.
+
+\bibitem{erlingsson2014rappor}
+{\sc Erlingsson, {\'U}., Pihur, V., and Korolova, A.}
+\newblock Rappor: Randomized aggregatable privacy-preserving ordinal response.
+\newblock In {\em Proceedings of the 2014 ACM SIGSAC Conference on Computer and
+  Communications Security\/} (2014), ACM, pp.~1054--1067.
+
+\bibitem{henzinger2006finding}
+{\sc Henzinger, M.}
+\newblock Finding near-duplicate web pages: a large-scale evaluation of
+  algorithms.
+\newblock In {\em Proceedings of the 29th annual international ACM SIGIR
+  conference on Research and development in information retrieval\/} (2006),
+  ACM, pp.~284--291.
+
+\bibitem{henzinger2002challenges}
+{\sc Henzinger, M.~R., Motwani, R., and Silverstein, C.}
+\newblock Challenges in web search engines.
+\newblock In {\em ACM SIGIR Forum\/} (2002), no.~2, ACM, pp.~11--22.
+
+\bibitem{jones2014scipy}
+{\sc Jones, E., Oliphant, T., and Peterson, P.}
+\newblock Scipy: Open source scientific tools for python.
+
+\bibitem{lin2009detection}
+{\sc Lin, J.-L.}
+\newblock Detection of cloaked web spam by using tag-based methods.
+\newblock {\em Expert Systems with Applications 36}, 4 (2009), 7493--7499.
+
+\bibitem{manku2007detecting}
+{\sc Manku, G.~S., Jain, A., and Das~Sarma, A.}
+\newblock Detecting near-duplicates for web crawling.
+\newblock In {\em Proceedings of the 16th international conference on World
+  Wide Web\/} (2007), ACM, pp.~141--150.
+
+\bibitem{najork2005system}
+{\sc Najork, M.~A.}
+\newblock System and method for identifying cloaked web servers, 2005.
+\newblock US Patent 6,910,077.
+
+\bibitem{scikit-learn}
+{\sc Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B.,
+  Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V.,
+  Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., and
+  Duchesnay, E.}
+\newblock Scikit-learn: Machine learning in {P}ython.
+\newblock {\em Journal of Machine Learning Research 12\/} (2011), 2825--2830.
+
+\bibitem{rajab2013camp}
+{\sc Rajab, M.~A., Ballard, L., Lutz, N., Mavrommatis, P., and Provos, N.}
+\newblock Camp: Content-agnostic malware protection.
+\newblock In {\em NDSS\/} (2013).
+
+\bibitem{selenium}
+{\sc Samit, B., Jari, B., and et~al, B.~A.}
+\newblock Seleniumhq.
+\newblock \URL{http://www.seleniumhq.org}.
+
+\bibitem{vissers2015parking}
+{\sc Vissers, T., Joosen, W., and Nikiforakis, N.}
+\newblock Parking sensors: Analyzing and detecting parked domains.
+\newblock In {\em Proceedings of the ISOC Network and Distributed System
+  Security Symposium (NDSS’15)\/} (2015).
+
+\bibitem{wang2011cloak}
+{\sc Wang, D.~Y., Savage, S., and Voelker, G.~M.}
+\newblock Cloak and dagger: dynamics of web search cloaking.
+\newblock In {\em Proceedings of the 18th ACM conference on Computer and
+  communications security\/} (2011), ACM, pp.~477--490.
+
+\bibitem{wang2006detecting}
+{\sc Wang, Y.-M., and Ma, M.}
+\newblock Detecting stealth web pages that use click-through cloaking.
+\newblock In {\em Microsoft Research Technical Report, MSR-TR\/} (2006).
+
+\bibitem{wu2005cloaking}
+{\sc Wu, B., and Davison, B.~D.}
+\newblock Cloaking and redirection: A preliminary study.
+\newblock In {\em AIRWeb\/} (2005), pp.~7--16.
+
+\bibitem{wu2006detecting}
+{\sc Wu, B., and Davison, B.~D.}
+\newblock Detecting semantic cloaking on the web.
+\newblock In {\em Proceedings of the 15th international conference on World
+  Wide Web\/} (2006), ACM, pp.~819--828.
+
+\end{thebibliography}

@@ -1,0 +1,37 @@
+Progress ==========================================================================
+1. selenium browser automation
+	hot words crawling from Google Trend (6254)
+	advertisement list crawling from Google Search (2795)
+	advertisement visiting with selenium 
+2. simhash-py
+	hash algorithm, hash key, clustering algorithms
+
+
+Questions to answer ==========================================================================
+1. Robustness
+a. Timing: When are we going to grab the content and compute simhash?
+The page could deliver bad content after a while, which simply bypasses our detection.
+b. Structure vs. Text: How are we going to define cloaking?
+
+2. Privacy and Attack Model
+Attack Model: get simhash, want to find out content
+Simhash: One-wayness
+Attacker could not get content
+
+Attack Model: get URL and corresponding simhash, want to find out some sensitive field on that page, e.g. name
+Collision probability: Pr[h(x) = h(y)] = sim(x,y)
+Attacker could not do dictionary attack on sensitive field of that page. Because feature set is large and difference in several features doesn’t cause the simhash to change
+
+3. Properties of simhash. Is it distributive? commutative? How many difference in features introduce cloaking? Always?
+what simhash essentially captures? Show several (very) simple cases and compute/compare actual simhash results on them. This has to be (almost always) done when you are introducing/using some distance measures to the new problem.
+
+4. Model Learning Algorithm
+Mixed gaussian dist? would be better fit for this problem since we have multiple clusters.
+
+
+Next Steps ==========================================================================
+1. Get advisor or labmates involved?
+2. Set up regular meetings
+3. Target Oakland or USENIX
+
+

@@ -1,0 +1,68 @@
+How to run:
+python crawl.py
+python simhash_computer.py
+
+Dependencies:
+python
+pip install selenium
+pip install simhash
+pip install beautifulsoup4
+pip install xmltodict
+pip install -U scikit-learn
+sudo apt-get install python-numpy python-scipy
+wget https://protobuf.googlecode.com/svn/rc/protobuf-2.6.0.tar.gz
+	Follow instruction to install c++ and python version of protobuf.
+http://nodejs.org
+	Install nodejs
+npm install protobufjs
+
+
+one of the following:
+chrome, firefox, htmlunit
+http://htmlunit.sourceforge.net/
+
+Reference:
+selenium
+	http://www.seleniumhq.org
+simhash
+	https://pypi.python.org/pypi/simhash/1.4.6
+beautifulsoup4
+	http://www.crummy.com/software/BeautifulSoup/bs4/doc/
+numpy, scipy
+	http://www.scipy.org/install.html
+protocol buffer
+	https://developers.google.com/protocol-buffers/docs/overview
+xmltodict
+	http://brunorocha.org/python/django/xmltodict-python-module-that-makes-working-with-xml-feel-like-you-are-working-with-json.html
+scikit-learn
+	http://scikit-learn.org/0.10/install.html
+
+Note:
+doesn't use the following because not needed yet.
+cython
+	http://cython.org
+libJudy
+	http://judy.sourceforge.net
+simhash-py
+	https://github.com/seomoz/simhash-py
+	This uses simhash-cpp to compute simhash.
+
+protocol buffer issue:
+	cpp_implementation of python need to fix one issue
+	(1) put the following line in to setup.py py_modules
+	'google.protobuf.pyext.cpp_message',
+	(2) then do the following
+	python setup.py build --cpp_implementation
+	python setup.py install --cpp_implementation
+
+node.js
+	Used to convert proto to js
+	directory: node_modules
+protobufjs
+	Communicate js in protocol buffer
+	How to convert proto to js / json
+		https://github.com/dcodeIO/ProtoBuf.js/wiki/proto2js
+pbjs
+	The newer version of protobufjs
+
+

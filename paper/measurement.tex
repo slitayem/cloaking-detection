@@ -1,0 +1,139 @@
+\section{Measurement}
+\label{s:measurement}
+
+\begin{table*}[t]
+  \centering
+  \begin{center}
+    \begin{tabularx}{1\textwidth}{c|c|c|c|c|c|c|c|c|c|c|c}
+    \multirow{2}{*}{ Category } & \multicolumn{4}{c|}{Traffic Sale} &
+      \multirow{2}{*}{PPC} & \multirow{2}{*}{Error} & \multirow{2}{*}{IS} &
+      \multirow{2}{*}{Phishing} &
+      \multirow{2}{*}{PD} &  \multirow{2}{*}{Malware} & \multirow{2}{*}{Total}\\
+      \cline{2-5}
+      & Pharmacy & Gamble & Loan & TS  & & & & & & &\\
+      \hline
+      Spammy Search & 661 & 1514 & 33 & 28 & 28 & 43 & 122 & 17 & 73 & 20 &
+      2491 \\
+      Hot Search & 33 & 2 & 26 & 27 & 0 &  2 & 2 & 0 &   3 & 0 & 93\\
+      Spammy Ads & 0 & 0 & 0 & 0 & 1 & 0 & 5 & 0 & 0 & 0 & 6\\
+      Hot Ads & 0 & 0 & 0 & 4 & 0 &  0 & 6 & 0 & 0 & 0 & 10\\
+      \bottomrule
+      \multicolumn{10}{c} {TS: Traffic Sale, PPC: Pay-Per-Click, IS: Illegal
+      Service, PD: Parking Domain}
+    \end{tabularx}
+  \end{center}
+  \caption{Cloaking Distribution.}
+  \label{tbl:result}
+\end{table*}
+
+
+With the model built in ~\autoref{s:evaluation}, we detect cloaking in
+four collected datasets, spammy search, $D_{spam, search}$, hot search,
+$D_{hot, search}$, spammy ads $D_{spam, ad}$, hot ads, $D_{hot, ad}$. 
+$D_{spam, search}$. From our observations, we categorize cloaking websites into
+seven types:
+Traffic Sale, Pay-Per-Click (PPC), Error Page, Illegal Service,
+Phishing, Parking Domain and Malware Downloading.
+To better analyze cloaking incentives, 
+we divided traffic sale into four categories: pharmacy, gambling, loan and general traffic sale. 
+Traffic sale sites are usually third party url composed of single iframe
+pointing the target site for traffic monetization, ~\autoref{seo:cloaking} gives
+an example. PPC means user view of landing page simply host pay-per-click advertisements.
+Error Page refers to website that deliver simple information, such as character 'P' to user,
+but SEO content to Google, the reason is unknown.
+Illegal Service includes websites that provide essay writing service, copyrighted
+content and bot service, e.g. buy 10k youtube likes.
+Parking Domain refers to domains that redirect user to unwanted download, but
+not necessarily malicious.
+
+\subsection{Cloaking in SEO}
+In SEO, we detect cloaking websites in $D_{spam, search}$ and $D_{hot,
+search}$. In $D_{spam, search}$, we applied our cloaking detection system 
+on 129393 websites. We manually label
+the detection results and identified 2491 cloaking websites which are further
+labeled with its incentive ~\autoref{tbl:result}. Majority of these sites fall into traffic sale. 
+But it is worth noticing that phishing, parking domain and malware sums to 110
+in the table, which need to be cautious about.
+In $D_{hot, search}$, cloaking detection system returned 93
+cloaking websites. 33 websites are cloaking of pharmacy. 2 websites are cloaking of gambling.
+26 websites are cloaking of loan. 27 websites are cloaking of traffic sale. 
+2 websites are cloaking of illegal service. 3 websites are cloaking of parking domain.
+
+From the detection result, we see that the main goal of cloaking as an SEO 
+technique is to obtain user traffic.
+In spammy search, 89.7\% is traffic sale cloaking. 97.27\% of them are from
+pharmacy and gambling. 
+In hot search, 94.6\% is traffic sale cloaking. 
+We conclude that majority of cloaking websites in SEO field is doing traffic
+sale, but there are sites promoting illegal service and even phishing and
+malware as well.
+
+%label total cloaking
+%173
+%phishing
+%78 + 69 (gambling)
+%cheat, dishonest behavior
+%13
+%malware or parking domain
+%16
+
+%We have detected.
+%We manually examine the results and found \XXX{N} are actually cloaking.
+%For SEO and SEM, the cloaking rate is 5\% and 3\% in the dataset collected by
+%us.
+%
+%We see a lower cloaking rate compared to XXX, may be because Google has done
+%something to this. However, this problem still remains.
+%
+%For the United States, web search dataset.
+%
+%The advertisements are
+%before dedup: 4381
+%after dedup: 1487
+
+
+\subsection{Cloaking in SEM}
+
+In SEM field, we deteck cloaking websites in $D_{spam, ad}$ and $D_{hot, ad}$. In spammy ads,
+we applied cloaking detection system on 25533 websites. Cloaking detection system reported 6 cloaking websites.
+1 website is cloaking of pay per click. In hot ads, we applied cloaking tection system on 25209 websites.
+Cloaking detection system reported 10 cloaking websites. 4 websites are cloaking of traffic sale.
+6 websites are cloaking of illegal service. 
+
+In spammy ads and hot ads, none of cloaking websites are traffic sale cloaking. 
+One reason is page ranking mechamisms in SEM.
+Because most of ads are ranked by their real time bid price,
+there is no incentives to raise page rank by increasing traffic sale.
+In addition, using ads to increase traffic sale can cost a lot.
+Instead of using ads to increase page rank, a direct way
+is to pay search engine like Google to get higher rank. 
+Most of cloaking websites in SEM have strong commercial incentives. In spammy Ads,
+83.3\% are providing illegal services to gain profits. 
+16.7\% are pay per click cloaking website. As long as the pay per click cloaking 
+website get enough clicks and gain more money than bidding cost,
+it is worthy to do pay per click cloaking in SEM. In hot ads, we see 60\%
+cloaking websites are providing illegal service.
+This fact confirmed our conclusion that most of cloaking in
+SEM are motivated by commercial profits.
+
+%We argue that, previous methods cannot be used to detect SEM cloaking, simply
+%because performing clicks from search engine side, is ad fraud. In contrast,
+%SWM simply collects the fuzzy signatures of websites. With privacy guarantee
+%provided by RAPPOR~\cite{erlingsson2014rappor}, and one-wayness of simhash,
+%crowdsourcing is an achievable and elegant way to detect cloaking.
+
+%\subsection{Cross Domain Spam Detection}
+%In our detection result, we have observed many cloaking cases, where URL are
+%completely different, while the content are similar or even the same.
+%We argue that, the foundamental reason for them to do this is the low cost of
+%getting a new URL and lack of efficient way to detect spammy content.
+%Based on this observation, we propose content based blacklist to raise the bar
+%for reusing spammy content. This approach leverages the most popular use of
+%simhash - near duplicate detection. For spammy pages, in order to evade our
+%detection, they not only need to change URL rapidly, but also update their
+%content everytime, which can be expensive in their current mode if they want
+%every copy their website to be different and have meaningful and stay attractive
+%to user.
+%
+
+
